@@ -18,6 +18,7 @@ You should have received a copy of the CC0 Public Domain Dedication along with t
 #include <signal.h>
 #include <math.h>
 #include "config.h"
+#include "centre.h"
 #define FOPEN_FAIL -10
 #define ENV_VAR_OR_USERNAME (getenv("NB_PLAYER")?getenv("NB_PLAYER"):getenv("USER"))
 #define MAXPATHSIZE 1000

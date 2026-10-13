@@ -16,6 +16,7 @@ TODO make it like puyo puyo instead of the remake of what i poorly remembered*/
 #include "common.h"
 #define LEN 17
 #define WID 19
+#define MIDDLE 16
 #define DELAY 2
 #define SAVE_TO_NUM 10
 
@@ -217,7 +218,8 @@ bool explode(byte combo){
 //display
 void draw(void){
 	erase();
-	int middle = (COLS/2-1)-(WID/2);
+	// a fixed layout, centred as a whole by centre.h
+	int middle = MIDDLE;
 	chtype a=A_STANDOUT|' ';
 	mvhline(LEN,middle-2,a,WID+4);
 	mvvline(0,middle-1,a,LEN);
@@ -235,7 +237,7 @@ void draw(void){
 				mvaddch(y,middle+x,c);
 		}
 	}
-	mvaddstr(LINES-2,middle-5,controls);
+	mvaddstr(LEN+2,middle-5,controls);
 	refresh();
 }
 int main(int argc,char** argv){
@@ -306,7 +308,7 @@ int main(int argc,char** argv){
                         else if(input=='k' || (input==KEY_UP||input=='w'))
                                 rotate();
                         else if(input=='p'){
-                                mvaddstr(LINES-2,COLS/2-15,"Paused - Press a key to continue   ");
+                                mvaddstr(LEN+2,MIDDLE-5,"Paused - Press a key to continue   ");
                                 refresh();
                                 nocbreak();
                                 cbreak();

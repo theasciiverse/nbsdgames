@@ -334,6 +334,8 @@ void sigint_handler(int x){
 int main(void){
 	signal(SIGINT,sigint_handler);
 	initscr();
+	nb_max_lines=LEN;//the field; the squares beyond it are off screen
+	nb_max_cols=WID;
 	noecho();
 	cbreak();
 	keypad(stdscr,1);

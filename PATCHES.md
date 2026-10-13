@@ -15,6 +15,20 @@ New BSD Games. The `nbsdgames` menu is not built: av is the menu.
   `HOME`, so that path was built from a null pointer; it now falls back to
   `USERPROFILE`.
 
+- **Centred in the terminal.** The games draw from the top left corner, so
+  on a big terminal the board sat in a corner. `src/centre.h`, included from
+  `common.h`, swaps `stdscr` for a pad when curses starts, so the games draw
+  exactly as before; `refresh()` and `getch()` then show the drawn area of the
+  current screen centred, a resized terminal re-centres it (the games never
+  see `KEY_RESIZE`), and mouse positions are translated back. The area grows
+  while the game keeps drawing over it, so the board does not jump about, and
+  starts over when the game moves to another screen (from a question to the
+  board, or to a help page). A terminal smaller than the game shows its top
+  left part, as before. Two games needed a line or two: `jewels` laid itself
+  out from the terminal size (board centred by `COLS`, keys on the bottom
+  line) and now has a fixed layout; `sjump` draws its next squares past its
+  80x24 field, so it caps the measured area at the field.
+
 ## Packaging (new files)
 
 - `asciiverse/games.txt`: the catalog id and binary of each of the 22
