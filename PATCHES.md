@@ -44,6 +44,6 @@ New BSD Games. The `nbsdgames` menu is not built: av is the menu.
 
 ## Not built
 
-- System packages: New BSD Games is already packaged by Debian, Fedora,
-  openSUSE, Alpine, Arch (AUR), the BSDs and Homebrew
-  (https://repology.org/project/nbsdgames/versions).
+- System packages: New BSD Games is already packaged by Debian, Ubuntu,
+  openSUSE, Alpine, Nix, Homebrew, FreeBSD and pkgsrc, and is in the AUR
+  (https://repology.org/project/nbsdgames/versions, checked 2026-10-13).
