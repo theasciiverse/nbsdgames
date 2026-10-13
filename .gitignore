@@ -1,0 +1,4 @@
+# asciiverse/build.sh and package.sh
+out/
+stage/
+dist/

@@ -1,0 +1,25 @@
+# One catalog title per game: id, then the binary built from src/<binary>.c.
+# The nbsdgames menu is not built: av is the menu.
+# sos is Red Hat's system report tool, so that id carries the collection's prefix.
+battleship  battleship
+checkers    checkers
+darrt       darrt
+fifteen     fifteen
+fisher      fisher
+jewels      jewels
+memoblocks  memoblocks
+miketron    miketron
+mines       mines
+muncher     muncher
+pipes       pipes
+rabbithole  rabbithole
+redsquare   redsquare
+revenge     revenge
+reversi     reversi
+scissor     scissor
+sjump       sjump
+snakeduel   snakeduel
+nbsd-sos    sos
+sudoku      sudoku
+trsr        trsr
+tugow       tugow
