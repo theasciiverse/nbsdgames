@@ -41,6 +41,10 @@ New BSD Games. The `nbsdgames` menu is not built: av is the menu.
 - `.github/workflows/release.yml`: static Linux builds in Alpine (x86_64,
   aarch64), macOS (x86_64, arm64) and Windows x86_64 cross-built with MinGW
   against PDCurses 3.9, plus SHA256SUMS, on a tag.
+- `asciiverse/record/`: the drivers that play each game for its catalog
+  preview, reading the screen through pyte (`rec.py` is shared; its
+  `origin`, `grid` and `cells` find the centred game on the screen), and
+  `asciiverse/casts/`, the 100x30 previews they recorded.
 
 ## Not built
 
