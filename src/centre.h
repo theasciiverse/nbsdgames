@@ -7,10 +7,12 @@ in the games works unchanged; refresh() then shows the part of the pad the
 game has drawn on, centred in the terminal.
 
 The centred area is that of the current screen: while what is drawn keeps
-overlapping it (a board being played, a message coming and going), it only
-grows, so the picture does not jump about; when the game moves to another
-screen (from a question to the board, from the board to its help page), the
-area starts over. Mouse positions are translated back to the game's own
+overlapping it (a board being played, a message coming and going), it grows
+at once but shrinks only when the drawing has stayed smaller for two
+seconds, so a passing message does not move the picture while a lasting
+change (a wide line of instructions gone once the game starts) re-centres
+it; when the game moves to another screen (from a question to the board,
+from the board to its help page), the area starts over. Mouse positions are translated back to the game's own
 coordinates, and a resized terminal re-centres the picture (the game never
 sees KEY_RESIZE). A terminal too small for the game shows its top left
 part, as before.
@@ -20,6 +22,8 @@ Released into the public domain under CC0, like the rest of New BSD Games.
 #ifndef CENTRE_H
 #define CENTRE_H
 
+#include <time.h>
+
 #define NB_PAD_LINES 100
 #define NB_PAD_COLS 300
 
@@ -27,6 +31,9 @@ static WINDOW* nb_pad;//where the game draws
 static chtype* nb_row;//one row of it, for measuring
 static int nb_top,nb_left,nb_bottom=-1,nb_right=-1;//the current screen's area, inclusive
 static int nb_oy,nb_ox,nb_lines,nb_cols;//where that is shown, for which terminal size
+//what has been drawn since it last filled that area, and since when
+static int nb_st,nb_sl,nb_sb=-1,nb_sr;
+static time_t nb_small_since;
 //a game whose world runs past its field sets these to the field's size
 static int nb_max_lines=NB_PAD_LINES,nb_max_cols=NB_PAD_COLS;
 
@@ -75,14 +82,35 @@ static void nb_follow(int top,int left,int bottom,int right){
 		long drawn=(long)(bottom-top+1)*(right-left+1);
 		long area=(long)(nb_bottom-nb_top+1)*(nb_right-nb_left+1);
 		if(2*both>=drawn+area-both){//overlapping by half or more: the same screen
-			if(top<nb_top)nb_top=top;
-			if(left<nb_left)nb_left=left;
-			if(bottom>nb_bottom)nb_bottom=bottom;
-			if(right>nb_right)nb_right=right;
+			bool inside=top>=nb_top && left>=nb_left && bottom<=nb_bottom && right<=nb_right;
+			if(!inside || (top==nb_top && left==nb_left && bottom==nb_bottom && right==nb_right)){
+				if(top<nb_top)nb_top=top;
+				if(left<nb_left)nb_left=left;
+				if(bottom>nb_bottom)nb_bottom=bottom;
+				if(right>nb_right)nb_right=right;
+				nb_sb=-1;
+				return;
+			}
+			//smaller than the area: shrink to it once that has lasted
+			if(nb_sb<0){
+				nb_st=top;nb_sl=left;nb_sb=bottom;nb_sr=right;
+				nb_small_since=time(NULL);
+			}
+			else{
+				if(top<nb_st)nb_st=top;
+				if(left<nb_sl)nb_sl=left;
+				if(bottom>nb_sb)nb_sb=bottom;
+				if(right>nb_sr)nb_sr=right;
+			}
+			if(time(NULL)-nb_small_since>=2){
+				nb_top=nb_st;nb_left=nb_sl;nb_bottom=nb_sb;nb_right=nb_sr;
+				nb_sb=-1;
+			}
 			return;
 		}
 	}
 	nb_top=top;nb_left=left;nb_bottom=bottom;nb_right=right;
+	nb_sb=-1;
 }
 
 static int nb_refresh(void){

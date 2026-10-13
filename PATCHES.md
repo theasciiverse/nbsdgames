@@ -21,7 +21,10 @@ New BSD Games. The `nbsdgames` menu is not built: av is the menu.
   exactly as before; `refresh()` and `getch()` then show the drawn area of the
   current screen centred, a resized terminal re-centres it (the games never
   see `KEY_RESIZE`), and mouse positions are translated back. The area grows
-  while the game keeps drawing over it, so the board does not jump about, and
+  at once while the game keeps drawing over it but shrinks only after the
+  drawing has stayed smaller for two seconds, so a passing message does not
+  move the board while a lasting change re-centres it (battleship's wide
+  placement instructions no longer push the game board left), and it
   starts over when the game moves to another screen (from a question to the
   board, or to a help page). A terminal smaller than the game shows its top
   left part, as before. Two games needed a line or two: `jewels` laid itself
