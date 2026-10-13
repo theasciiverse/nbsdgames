@@ -99,7 +99,12 @@ byte fallback_to_home(const char* name,long wscore,byte save_to_num){// only sav
 	snprintf(full_path,MAXPATHSIZE,"%s/%s",SCORES_DIR,name);
 	ret=score_write(full_path,wscore,save_to_num);
 	if(ret==FOPEN_FAIL){
-		snprintf(full_path,MAXPATHSIZE,"%s/.%s",getenv("HOME"),name);
+		// Windows has no HOME; USERPROFILE is the same folder there
+		const char* home=getenv("HOME")?getenv("HOME"):getenv("USERPROFILE");
+		if(!home){
+			return FOPEN_FAIL;
+		}
+		snprintf(full_path,MAXPATHSIZE,"%s/.%s",home,name);
 		ret=score_write(full_path,wscore,save_to_num);
 	}
 	return ret;
