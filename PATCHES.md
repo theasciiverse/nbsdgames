@@ -32,6 +32,12 @@ New BSD Games. The `nbsdgames` menu is not built: av is the menu.
   line) and now has a fixed layout; `sjump` draws its next squares past its
   80x24 field, so it caps the measured area at the field.
 
+- **Battleship is Salvo here.** The name Battleship is Hasbro's, so the game
+  plays under the pencil-and-paper game's old name: `salvo` is its catalog id
+  and binary (a third column in `asciiverse/games.txt`), and the logo on its
+  three screens draws an S and ALVO where it drew B and ATTLESHIP. The source
+  file keeps abakh's name, and the ship class is still a battleship.
+
 ## Packaging (new files)
 
 - `asciiverse/games.txt`: the catalog id and binary of each of the 22

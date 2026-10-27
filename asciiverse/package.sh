@@ -10,11 +10,12 @@ cd "$(dirname "$0")/.."
 target="$1"
 case "$target" in *windows*) exe=.exe ;; *) exe= ;; esac
 mkdir -p dist
-grep -v '^#' asciiverse/games.txt | while read -r id bin; do
+grep -v '^#' asciiverse/games.txt | while read -r id bin name; do
+  name="${name:-$bin}"
   [ -n "$id" ] || continue
   stage="stage/$id"
   rm -rf "$stage" && mkdir -p "$stage"
-  cp "out/$bin$exe" LICENSE APACHE README.md "$stage/"
+  cp "out/$name$exe" LICENSE APACHE README.md "$stage/"
   [ -f "src/man/$bin.6" ] && cp "src/man/$bin.6" "$stage/"
   if [ -n "$exe" ]; then
     (cd "$stage" && zip -qr "../../dist/$id-$target.zip" .)

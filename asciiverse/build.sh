@@ -15,9 +15,10 @@ LDFLAGS="${LDFLAGS:-}"
 LIBS="${LIBS:--lncurses -lm}"
 EXE="${EXE:-}"
 mkdir -p out
-grep -v '^#' asciiverse/games.txt | while read -r id bin; do
+grep -v '^#' asciiverse/games.txt | while read -r id bin name; do
+  name="${name:-$bin}"
   [ -n "$id" ] || continue
   # scores go to /var/games when it is writable, else to ~/.<game>_scores
-  $CC $CFLAGS -Wno-unused-result -DSCORES_DIR='"/var/games"' "src/$bin.c" $LDFLAGS $LIBS -o "out/$bin$EXE"
-  echo "built $bin$EXE"
+  $CC $CFLAGS -Wno-unused-result -DSCORES_DIR='"/var/games"' "src/$bin.c" $LDFLAGS $LIBS -o "out/$name$EXE"
+  echo "built $name$EXE"
 done

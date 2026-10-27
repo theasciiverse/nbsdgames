@@ -133,9 +133,9 @@ void header(bool side){
 					score[!side]++;
 		}
 	}
-	mvaddch(0,1,  '_');
-	mvprintw(1,0,"|_) %2d:%2d",score[side],score[!side]);
-	mvprintw(2,0,"|_)ATTLESHIP ");
+	mvaddstr(0,1,"__");
+	mvprintw(1,0,"(_  %2d:%2d",score[side],score[!side]);
+	mvprintw(2,0," __)ALVO      ");
 	if(multiplayer){
 		attron(colors[side]);
 		if(side)
@@ -230,9 +230,9 @@ void set_the_board(bool side){
 		return;
 	}
 	erase();
-	mvaddch(0,1,  '_');
-	mvaddstr(1,0,"|_) Set your board");
-	mvaddstr(2,0,"|_)ATTLESHIP");
+	mvaddstr(0,1,"__");
+	mvaddstr(1,0,"(_  Set your board");
+	mvaddstr(2,0," __)ALVO     ");
 	mvaddstr(16,0,"Press RETURN to specify the location and press R to rotate the ship.");
 	int input;
 	byte y=0,x=0,direction=0, invain=0;
@@ -311,9 +311,9 @@ void turn_shift(void){
 	input1=input2=input3=0;
 	erase();
 	beep();
-	mvaddch(0,1,  '_');
-	mvaddstr(1,0,"|_) Anti-cheater");
-	mvaddstr(2,0,"|_)ATTLESHIP");
+	mvaddstr(0,1,"__");
+	mvaddstr(1,0,"(_  Anti-cheater");
+	mvaddstr(2,0," __)ALVO     ");
 	mvaddstr(4,0,"********************");
 	mvprintw(5,0," Type '%c' 3 times  ",key);
 	mvaddstr(6,0,"       before ");

@@ -1,4 +1,4 @@
-"""Records asciiverse/casts/battleship.cast: single player against the
+"""Records asciiverse/casts/salvo.cast: single player against the
 computer. The driver places its five ships at random spots with room
 around them, turning a few of them with r, then shoots: on a checkerboard pattern while hunting,
 around a hit until the ship is sunk, along the line once two hits line
@@ -10,7 +10,7 @@ from rec import Rec, UP, DOWN, LEFT, RIGHT, ENTER
 
 SECONDS = 56
 LENGTHS = {"patrol boat": 2, "destroyer": 3, "battleship": 4, "carrier": 5, "submarine": 3}
-r = Rec("battleship", "Battleship")
+r = Rec("salvo", "Salvo")
 r.wait_for("Single Player", 5)
 r.pump(1.0)
 r.key("1", 0.8)

@@ -1,7 +1,8 @@
-# One catalog title per game: id, then the binary built from src/<binary>.c.
+# One catalog title per game: id, then the source, src/<source>.c, and the
+# binary's name when it differs from the source's.
 # The nbsdgames menu is not built: av is the menu.
 # sos is Red Hat's system report tool, so that id carries the collection's prefix.
-battleship  battleship
+salvo       battleship  salvo
 checkers    checkers
 darrt       darrt
 fifteen     fifteen
